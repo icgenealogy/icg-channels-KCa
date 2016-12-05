@@ -3,9 +3,11 @@
 NEURON 
 {
 	SUFFIX Kca
-	USEION Ca READ Cai VALENCE 2
-	USEION Kca WRITE iKca VALENCE 1
-	RANGE infmKcaV,taumKcaV,eKca,gKcabar,Cahalf
+	:USEION Ca READ Cai VALENCE 2
+	:USEION Kca WRITE iKca VALENCE 1
+	USEION ca READ cai
+        USEION k READ ek WRITE ik
+        RANGE infmKcaV,taumKcaV,gKcabar,Cahalf
 }
 
 UNITS
@@ -23,9 +25,9 @@ PARAMETER
        
  
        :Ca-dependent K current
-       eKca=-80 (mV)
+       :eKca=-80 (mV)
        gKcabar = 5 (mS/cm2)
-       Cai
+       :Cai
 	Cahalf=0.32 (uM)	 
  
 
@@ -41,8 +43,11 @@ STATE
 
 ASSIGNED
 {
-	iKca (mA/cm^2)
-	v (mV)
+	:iKca (mA/cm^2)
+	ik (mA/cm^2)
+        v (mV)
+        ek (mV)
+        cai (mM)
            :Ca-dependent potassium channel, Kca
 	:infmKcaV
 	:taumKcaV  (ms)
@@ -53,7 +58,7 @@ ASSIGNED
 INITIAL
 {      LOCAL Cas
 	:rate(v)
-	Cas=Cai*1000 :uM
+	Cas=cai*1000 :uM
 
 	:mKcaV= infmKcaV
         :Cas=Cai
@@ -67,11 +72,11 @@ BREAKPOINT
 {
 	LOCAL Cas
 	:SOLVE states METHOD cnexp
-	Cas=Cai*1000 :uM
+	Cas=cai*1000 :uM
 	mKcaCa=1/(1+(Cahalf/Cas)^4 )
 	:gKca=(0.001)*gKcabar*(mKcaV^2)*mKcaCa
         gKca=(0.001)*gKcabar*mKcaCa^4
-	iKca=gKca*(v-eKca) 
+	ik=gKca*(v-ek) 
 	: the current is in the unit of mA/cm2
 	
 }

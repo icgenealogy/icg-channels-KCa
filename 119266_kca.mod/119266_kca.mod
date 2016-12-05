@@ -5,7 +5,8 @@ TITLE Slow Ca-dependent potassium current
 NEURON {
 	SUFFIX kca
 	USEION k READ ek WRITE ik
-	USEION cal READ cali
+	:USEION cal READ cali
+	USEION ca READ cai
 	RANGE  gbar, po, ik
 	GLOBAL m_inf, tau_m
 }
@@ -22,7 +23,7 @@ ASSIGNED {       : parameters needed to solve DE
 	v               (mV)
 	celsius         (degC)
 	ek              (mV)
-	cali             (mM)           : initial [Ca]i
+	cai             (mM)           : initial [Ca]i
 	ik              (mA/cm2)
 	po
 	m_inf
@@ -46,18 +47,18 @@ BREAKPOINT {
 	SOLVE states METHOD cnexp
 :	po = m
 	po = m*m
-	ik = gbar*po*(v + 85)    : potassium current induced by this channel
-:	ik = gbar*po*(v - ek)    : potassium current induced by this channel
+:	ik = gbar*po*(v + 85)    : potassium current induced by this channel
+	ik = gbar*po*(v - ek)    : potassium current induced by this channel
 }
 
 DERIVATIVE states {
-	rates(cali)
+	rates(cai)
 	m' = (m_inf - m) / tau_m
 }
 
 
 INITIAL {
-	rates(cali)
+	rates(cai)
 	m = m_inf
 }
 
@@ -65,9 +66,9 @@ INITIAL {
 :	alp = a0*cai
 :	}
 
-PROCEDURE rates(cali(mM)) {  LOCAL a 
-:	a = alp(cali)
-	a = cali/b
+PROCEDURE rates(cai(mM)) {  LOCAL a 
+:	a = alp(cai)
+	a = cai/b
  	m_inf = a/(a+1)
-	tau_m = taumin+ 1(ms)*1(mM)/(cali+b)
+	tau_m = taumin+ 1(ms)*1(mM)/(cai+b)
 }

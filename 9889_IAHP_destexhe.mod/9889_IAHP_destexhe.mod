@@ -25,7 +25,7 @@ INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
 
 NEURON {
 	SUFFIX iahp
-	USEION k WRITE ik
+	USEION k READ ek WRITE ik
 	USEION ca READ cai
         RANGE gkbar, i
 	GLOBAL beta, cac, m_inf, tau_m
@@ -43,8 +43,8 @@ UNITS {
 PARAMETER {
 	v		(mV)
 	celsius	= 36	(degC)
-	erev = -95		(mV)
-	cai 	= 5e-5	(mM)		: initial [Ca]i = 50 nM
+	:erev = -95		(mV)
+	:cai 	= 5e-5	(mM)		: initial [Ca]i = 50 nM
 	gkbar	= .001	(mho/cm2)
 	beta	= 2.5	(1/ms)		: backward rate constant
 	cac	= 1e-4	(mM)		: middle point of activation fct
@@ -57,6 +57,8 @@ STATE {
 }
 
 ASSIGNED {
+        cai (mM)
+        ek (mV)
 	ik	(mA/cm2)
 	i	(mA/cm2)
 	m_inf
@@ -66,7 +68,7 @@ ASSIGNED {
 
 BREAKPOINT { 
 	SOLVE states METHOD runge
-	i = gkbar * m*m * (v - erev)
+	i = gkbar * m*m * (v - ek)
 	ik = i
 }
 

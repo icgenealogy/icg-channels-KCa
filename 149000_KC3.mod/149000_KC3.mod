@@ -21,7 +21,7 @@ INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
 NEURON {
 	SUFFIX KC3
 	USEION ca READ cai
-	USEION k WRITE ik
+	USEION k READ ek WRITE ik
 	RANGE gkbar,gk,zinf,ik
 }
 
@@ -31,12 +31,13 @@ PARAMETER {
 	v		(mV)
 	gkbar=.08	(mho/cm2)	: Maximum Permeability
 	cai = .04e-3	(mM)
-	ek  = -85	(mV)
+	:ek  = -85	(mV)
 	dt		(ms)
 }
 
 
 ASSIGNED {
+        ek (mV)
 	ik		(mA/cm2)
 	minf
 	mexp

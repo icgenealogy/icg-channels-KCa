@@ -8,9 +8,9 @@ INDEPENDENT {t FROM 0 TO 1 WITH 10 (ms)}
 NEURON {
 	SUFFIX kca
 	USEION ca READ cai
-	USEION k WRITE ik
+	USEION k READ ek WRITE ik
 	RANGE gmax, g, i, o_rate, c_rate, o
-	GLOBAL erev, cadep, maxc_rate, cainit
+	GLOBAL cadep, maxc_rate, cainit
 }
 
 UNITS {
@@ -22,17 +22,19 @@ UNITS {
 
 PARAMETER {
 	gmax = 0.015	(mho/cm2)
-	erev = -90	(mV)
+	:erev = -90	(mV)
 	cadep = 2
 	maxc_rate = 0.1 (1/ms)
-	cai		(mM)
+	:cai		(mM)
 	v		(mV)
 	o_rate = 0	(1/ms)
 	c_rate = 0	(1/ms)
 	cainit = 5e-5	(mM)
 }
 
-ASSIGNED { 
+ASSIGNED {
+        ek      (mV)
+        cai     (mM) 
 	ik	(mA/cm2) 
 	i	(mA/cm2)
         g       (mho/cm^2)
@@ -49,7 +51,7 @@ BREAKPOINT {
 	SOLVE state METHOD cnexp
 	o = 1-c
         g = gmax*o
-	i = g*(v-erev) ik=i 
+	i = g*(v-ek) ik=i 
 }
 
 DERIVATIVE state {

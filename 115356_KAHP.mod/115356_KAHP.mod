@@ -12,8 +12,8 @@ UNITS
  
 NEURON {
         SUFFIX KAHP
-	USEION k WRITE ik
-	USEION ca2 READ ca2i VALENCE 2.0
+	USEION k READ ek WRITE ik
+	USEION ca READ cai
         RANGE gAHPbar, gAHP
         GLOBAL qinf, qtau
 }
@@ -21,7 +21,7 @@ NEURON {
 PARAMETER 
 {
         gAHPbar = 0.0033 (S/cm2)	<0,1e9>
-        eK = -95 (mV)
+        :eK = -95 (mV)
 :	cai2 = 0.13 (micromolar)       <0,1e9>
 : see warman
 	qtau = 48 (ms)
@@ -36,12 +36,13 @@ STATE
  
 ASSIGNED 
 {
+        ek (mV)
         v (mV)
         celsius (degC)
 	gAHP (S/cm2)
         ik (mA/cm2)
 	qinf
-	ca2i (millimolar)
+	cai (millimolar)
 }
  
 
@@ -49,7 +50,7 @@ BREAKPOINT
 {
         SOLVE states METHOD cnexp
         gAHP = gAHPbar*q
-	ik = gAHP*(v - eK)
+	ik = gAHP*(v - ek)
 }
  
  
@@ -79,8 +80,8 @@ UNITSOFF
         q10 = 3^((celsius - 6.3)/10)
                 :"q" potassium activation system
 
-        alpha = 0.0048 / exp((10 * log10(ca2i*1000)-35)/-2)
-        beta =  0.012 / exp((10 * log10(ca2i*1000)+100) / 5)
+        alpha = 0.0048 / exp((10 * log10(cai*1000)-35)/-2)
+        beta =  0.012 / exp((10 * log10(cai*1000)+100) / 5)
         sum = alpha + beta
         qinf = alpha/sum
 }

@@ -24,7 +24,7 @@ UNITS {
 }
 
 PARAMETER {
-        gkcbar	= 0	 (S/cm2)
+        gkcbar	= 1.0	 (S/cm2)
 	:gkbar	= 1.0e-3 (S/cm2)
 }
 

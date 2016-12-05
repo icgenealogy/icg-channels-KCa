@@ -17,8 +17,9 @@ INDEPENDENT {t FROM 0 TO 1 WITH 100 (ms)}
 NEURON {
 	SUFFIX Ic
 	USEION ca READ cai
-	NONSPECIFIC_CURRENT i
-	RANGE gbar
+	:NONSPECIFIC_CURRENT i
+	USEION k READ ek WRITE ik
+        RANGE gbar
 	GLOBAL oinf, tau
 }
 
@@ -28,8 +29,8 @@ UNITS {
 PARAMETER {
 	v		(mV)
 	gbar=.0873	(mho/cm2)	: Maximum Permeability
-	cai       	(mM)
-	e = -90		(mV)
+	:cai       	(mM)
+	:e = -90		(mV)
 	dt		(ms)
 	
 
@@ -52,7 +53,9 @@ closed to open. Unfortunately I didn't switch the numbers.
 ENDCOMMENT
 
 ASSIGNED {
-	i 		(mA/cm2)
+        cai (mM)
+        ek (mV)
+	ik 		(mA/cm2)
 	oinf
 	tau		(ms)
 }
@@ -61,7 +64,7 @@ STATE {	o }		: fraction of open channels
 
 BREAKPOINT {
 	SOLVE state
-	i = gbar*o*(v - e)
+	ik = gbar*o*(v - ek)
 }
 
 LOCAL fac

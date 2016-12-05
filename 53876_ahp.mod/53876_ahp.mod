@@ -9,8 +9,9 @@ ENDCOMMENT
 NEURON {
 	SUFFIX ahp
 	USEION ca READ cai
-	NONSPECIFIC_CURRENT i
-	RANGE i, Erev, gbar, q, tau_q, qinf, betaq_const
+	:NONSPECIFIC_CURRENT i
+	USEION k READ ek WRITE ik
+        RANGE gbar, q, tau_q, qinf, betaq_const
 }
 
 UNITS {
@@ -21,13 +22,15 @@ UNITS {
 
 PARAMETER {
 	gbar = 2167e-6	(S/cm2) < 0, 1e9 >
-	Erev = -82 (mV)
-	cai (mM) : starts at 0.050 uM = 5e-8 (M) = 5e-5 mM
+	:Erev = -82 (mV)
+	:cai (mM) : starts at 0.050 uM = 5e-8 (M) = 5e-5 mM
 	betaq_const =  0.074	: Q+K 94
 }
 
 ASSIGNED {
-	i (mA/cm2)
+        ek (mV)
+        cai (mM)
+	ik (mA/cm2)
 	v (mV)
 	g (S/cm2)
 	qinf
@@ -39,7 +42,7 @@ STATE {	q }
 BREAKPOINT {
 	SOLVE states METHOD cnexp
 	g = gbar * q*q
-	i = g * (v - Erev)
+	ik = g * (v - ek)
 }
 
 INITIAL {

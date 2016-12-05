@@ -42,7 +42,7 @@ PARAMETER {
 
 	toffset_n = 0 (ms)
 
-	gbar = 0 (mho/cm2)
+	gbar = 1.0 (mho/cm2)
 }
 
 

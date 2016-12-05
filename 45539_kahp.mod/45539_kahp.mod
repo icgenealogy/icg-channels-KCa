@@ -20,7 +20,7 @@ NEURON {
 }
 
 PARAMETER { 
-	gbar = 0.0 	(mho/cm2)
+	gbar = 1.0 	(mho/cm2)
 	v		(mV) 
 	ek 		(mV)  
 	cai		(mM)

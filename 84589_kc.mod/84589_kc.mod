@@ -46,25 +46,25 @@ ASSIGNED {
 
 
 PARAMETER {
-        gbar	= 0 (mho/cm2)
+        gbar	= 1.0 (mho/cm2)
 	
-	k_oi = 0 (mV)
-	k_ic = 0 (mV)
-	k_co = 0 (mV)
-	k_oc = 0 (mV)
+	k_oi = 12 (mV)
+	k_ic = -10 (mV)
+	k_co = 6 (mV)
+	k_oc = -3 (mV)
 	
-	vhalf_oi = 0 (mV)
-	vhalf_ic = 0 (mV)
-	vhalf_co = 0 (mV)
-	vhalf_oc = 0 (mV)
+	vhalf_oi = -30 (mV)
+	vhalf_ic = -120 (mV)
+	vhalf_co = -45 (mV)
+	vhalf_oc = -40 (mV)
 	
-	tmin_oi = 0 (/ms)
-	tmin_ic = 0 (/ms)
-	tmin_co = 0 (/ms)
-	tmin_oc = 0 (/ms)
+	tmin_oi = 1.5e0 (/ms)
+	tmin_ic = 1e-1 (/ms)
+	tmin_co = 2e-2 (/ms)
+	tmin_oc = 1.5e0 (/ms)
 	
-	tmax_co  = 0 (/ms)
-	alpha_co = 0 (/mM/mM/mM)
+	tmax_co  = 50 (/ms)
+	alpha_co = 2.5e10 (/mM/mM/mM)
 }
 
 STATE { 

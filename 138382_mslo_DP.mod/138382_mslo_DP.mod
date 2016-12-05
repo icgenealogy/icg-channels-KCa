@@ -22,7 +22,7 @@ NEURON {
   SUFFIX mslo_DP
   USEION k READ ek WRITE ik
   USEION ca READ cai
-  USEION ca2 READ ca2i VALENCE 2
+  :USEION ca2 READ ca2i VALENCE 2
   RANGE g, gbar, ik
   GLOBAL frac1, frac2
 
@@ -99,7 +99,7 @@ ASSIGNED {
     
     v            (mV)
     cai          (mM)
-    ca2i         (mM)
+    :ca2i         (mM)
     ek           (mV)
     ik           (milliamp/cm2)
     g            (S/cm2)
@@ -135,7 +135,7 @@ INITIAL {
 }
 
 KINETIC activation {
-    rates(v, cai*frac1 + ca2i*frac2)
+    rates(v, cai) :cai*frac1 + ca2i*frac2)
     ~ C0 <-> C1      (c01,c10)
     ~ C1 <-> C2      (c12,c21)
     ~ C2 <-> C3      (c23,c32)

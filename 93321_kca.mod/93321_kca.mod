@@ -6,10 +6,11 @@ ENDCOMMENT
 
 NEURON {
 	SUFFIX kca
-	NONSPECIFIC_CURRENT i
-	USEION ca READ cai
-	POINTER gbar
-	RANGE i, Erev
+	:NONSPECIFIC_CURRENT i
+	USEION k READ ek WRITE ik
+        USEION ca READ cai
+	RANGE gbar
+        :POINTER gbar
 }
 
 UNITS {
@@ -22,18 +23,20 @@ UNITS {
 }
 
 PARAMETER {
-	gbar (S/cm2) : = 2e-6	(S/cm2) < 0, 1e9 > : this value gets overwritten by activity dependent regulation
-	Erev = -80 (mV)
+	gbar = 1.0 (S/cm2) : = 2e-6	(S/cm2) < 0, 1e9 > : this value gets overwritten by activity dependent regulation
+	:Erev = -80 (mV)
 : Note: concentrations in Liu et al. paper are in micromolar which needs to be
 : converted to millimolar for use in these NEURON programs.  (These mod files
 : expect the cai, cao variables to already be in millimolar
 : these get overwritten when read in:
-	cai (mM) :	= 2.4e-4 (mM)		: adjusted for eca=120 mV
-	cao	= 3	(mM)  : p.2319 Liu et al. 1998 (for eca 120 comment above cao=2 mM (orig))
+	:cai (mM) :	= 2.4e-4 (mM)		: adjusted for eca=120 mV
+	:cao	= 3	(mM)  : p.2319 Liu et al. 1998 (for eca 120 comment above cao=2 mM (orig))
 }
 
 ASSIGNED {
-	i (mA/cm2)
+        ek (mV)
+        cai (mM)
+	ik (mA/cm2)
 	v (mV)
 	g (S/cm2)
 	minf
@@ -45,7 +48,7 @@ STATE {	m }
 BREAKPOINT {
 	SOLVE states METHOD cnexp
 	g = gbar * m^4
-	i = g * (v - Erev)
+	ik = g * (v - ek)
 }
 
 INITIAL {

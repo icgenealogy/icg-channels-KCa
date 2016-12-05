@@ -19,7 +19,7 @@ ENDCOMMENT
 NEURON {
 
 	SUFFIX kahppr
-	USEION k WRITE ik
+	USEION k READ ek WRITE ik
 	USEION ca READ cai
 	RANGE gkahp, ik, qinf, tauq
 }
@@ -36,11 +36,11 @@ UNITS {
 PARAMETER {
 
     gkahp = 0.8 (mS/cm2)
-    ek   = -75 (mV)
+    :ek   = -75 (mV)
 }
     
 ASSIGNED {
-
+    ek (mV)
     v    (mV)
     ik   (mA/cm2)
     cai  (mM)
@@ -80,4 +80,4 @@ PROCEDURE rates(v(mV)) { LOCAL a,b
     tauq = 1.0/(a+b)
 }
 
-INCLUDE "aux_fun.inc"
+INCLUDE "custom_code/inc_files/139421_aux_fun.inc"

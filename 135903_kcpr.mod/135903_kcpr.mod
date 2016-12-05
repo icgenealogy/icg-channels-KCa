@@ -20,7 +20,7 @@ ENDCOMMENT
 NEURON {
 
 	SUFFIX kcpr
-	USEION k WRITE ik
+	USEION k READ ek WRITE ik
 	USEION ca READ cai
 	RANGE gkc, ik
 }
@@ -37,11 +37,11 @@ UNITS {
 PARAMETER {
 
     gkc = 15    (mS/cm2)
-    ek = -75    (mV)
+    :ek = -75    (mV)
 }
     
 ASSIGNED { 
-
+    ek (mV)
     ik   (mA/cm2)    
     v    (mV)
     cai  (mM)
@@ -90,4 +90,4 @@ PROCEDURE rates(v(mV)) { LOCAL a, b
     tauc = 1.0/(a+b)    
 }
 
-INCLUDE "aux_fun.inc"
+INCLUDE "custom_code/inc_files/135903_aux_fun.inc"

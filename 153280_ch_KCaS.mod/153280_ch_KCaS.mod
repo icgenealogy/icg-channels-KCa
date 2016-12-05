@@ -25,8 +25,8 @@ UNITS {
 
 NEURON {
 	SUFFIX ch_KCaS
-	USEION k READ ek WRITE ik VALENCE 1
-	USEION ca READ cai VALENCE 2
+	USEION k READ ek WRITE ik :VALENCE 1
+	USEION ca READ cai :VALENCE 2
 	RANGE g, gmax, qinf, qtau, ik
 	RANGE myi
     THREADSAFE
@@ -38,7 +38,7 @@ PARAMETER {
       celsius (degC) : temperature - set in hoc; default is 6.3
 	v		(mV)
 	dt		(ms)
-	gmax  (mho/cm2)
+	gmax = 1.0  (mho/cm2)
 	ek	(mV)
 	cai (mM)
 }

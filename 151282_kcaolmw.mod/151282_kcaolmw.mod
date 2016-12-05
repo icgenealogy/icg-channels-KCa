@@ -26,18 +26,19 @@ UNITS {
 
 NEURON {
   SUFFIX KCaolmw
-  USEION k WRITE ik
+  USEION k READ ek WRITE ik
   USEION ca READ cai
-  RANGE gkca,ek,kd
+  RANGE gkca,kd
 }
 	
 PARAMETER {
   gkca =  10 (mS/cm2)
-  ek   = -90 (mV)
+  :ek   = -90 (mV)
   kd   =  30 (mM)
 }
     
-ASSIGNED {    
+ASSIGNED {  
+  ek (mV)  
   cai (mM) 
   v   (mV)
   ik  (mA/cm2) 

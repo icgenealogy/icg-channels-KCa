@@ -25,10 +25,11 @@ INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
 
 NEURON {
 	SUFFIX iahp
-	USEION k2 WRITE ik2 VALENCE 1
-	USEION Ca READ Cai VALENCE 2
+	:USEION k2 WRITE ik2 VALENCE 1
+	USEION k READ ek WRITE ik
+        :USEION Ca READ Cai VALENCE 2
 	USEION ca READ cai
-        RANGE gkbar, i, g, ratc, ratC, minf, taum
+        RANGE Cai, gkbar, i, g, ratc, ratC, minf, taum
 	GLOBAL beta, cac, m_inf, tau_m, x
 }
 
@@ -44,15 +45,15 @@ UNITS {
 PARAMETER {
 	v		(mV)
 	celsius	= 36	(degC)
-	erev = -95		(mV)
-	Cai 	= 5e-5	(mM)		: initial [Ca]i = 50 nM
-	cai 	= 5e-5	(mM)		: initial [Ca]i = 50 nM
+	:erev = -95		(mV)
+	Cai 	= 0.0	(mM)		: initial [Ca]i = 50 nM
+	:cai 	= 5e-5	(mM)		: initial [Ca]i = 50 nM
 	gkbar	= .001	(mho/cm2)
 	beta	= 2.5	(1/ms)		: backward rate constant
 	cac	= 1e-4	(mM)		: middle point of activation fct
 	taumin	= 1	(ms)		: minimal value of the time cst
-        ratc    = 0
-        ratC    = 0
+        ratc    = 1.0
+        ratC    = 1.0
         x       = 2
 }
 
@@ -61,7 +62,9 @@ STATE {
 	m
 }
 ASSIGNED {
-	ik2 	(mA/cm2)
+        ek (mV)
+        cai (mM)
+	ik 	(mA/cm2)
 	i	(mA/cm2)
 	g       (mho/cm2)
 	m_inf
@@ -76,8 +79,8 @@ BREAKPOINT {
         minf=m_inf
         taum=tau_m
 	g = gkbar * m*m
-	i = g * (v - erev)
-	ik2  = i
+	i = g * (v - ek)
+	ik  = i
 }
 
 DERIVATIVE states { 
@@ -92,10 +95,10 @@ INITIAL {
 :  activation kinetics are assumed to be at 22 deg. C
 :  Q10 is assumed to be 3
 :
-	VERBATIM
-	cai = _ion_cai;
-	Cai = _ion_Cai;
-	ENDVERBATIM
+:	VERBATIM
+:	cai = _ion_cai;
+:	Cai = _ion_Cai;
+:	ENDVERBATIM
 
 	tadj = 3 ^ ((celsius-22.0)/10)
 

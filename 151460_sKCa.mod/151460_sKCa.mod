@@ -36,9 +36,9 @@ PARAMETER {
 	gk = 0.0001 (mho/cm2)
         isKCa = 0.0 (mA/cm2)
 	sKCatau = 2.365325544e+01 (ms)
-	ek 
+	:ek 
 	ki
-	cai
+	:cai
 	celsius
 	
 	activate_Q10 = 1
@@ -50,7 +50,9 @@ PARAMETER {
 }
 
 ASSIGNED {
-	ica (mA/cm2)
+        eca (mV)
+        ek (mV)
+	cai (mA/cm2)
         ik (mA/cm2)
         winf 
 	wtau (ms)

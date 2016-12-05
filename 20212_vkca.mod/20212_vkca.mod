@@ -25,7 +25,7 @@ PARAMETER {
         v                (mV)
         celsius = 34	(degC)
 	dt               (ms)
-        gbar = 0        (mho/cm2)
+        gbar = 1.0        (mho/cm2)
         ek = -80         (mV)
         cai              (mM)
         cac = 0.025      (mM)  

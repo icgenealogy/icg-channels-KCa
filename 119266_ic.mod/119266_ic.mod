@@ -14,8 +14,8 @@ ENDCOMMENT
 NEURON {
 	SUFFIX mykca
 	USEION k READ ek WRITE ik
-:	USEION ca READ cai
-	USEION can READ cani
+	USEION ca READ cai
+:	USEION can READ cani
         RANGE gkbar, ik
 	GLOBAL m_inf, tau_m
 }
@@ -33,8 +33,8 @@ PARAMETER {
 ASSIGNED {
 	v		(mV)
 	celsius		(degC)
-:	cai		(mM)
-	cani     	(mM)
+	cai		(mM)
+:	cani     	(mM)
 	ek		(mV)
 	ik		(mA/cm2)
 	tau_m		(ms)
@@ -52,14 +52,14 @@ BREAKPOINT {
 }
 
 DERIVATIVE states { 
-	rates(v,cani)
+	rates(v,cai)
 
        m'= (m_inf-m) / tau_m
 }
 
 INITIAL {
 	tadj = 3^((celsius-23.5)/(10(degC)))
-	rates(v,cani)
+	rates(v,cai)
 	m = m_inf
 }
 

@@ -27,10 +27,11 @@ PARAMETER {
    v (mV) 
    gkcabar = 0.013(mho/cm2)    
    ikca (ma/cm2)
-   ek           
+   :ek           
   }          
           
-ASSIGNED {          
+ASSIGNED { 
+   ek (mV)         
    ik  (mA/cm2)          
    cai (mM)          
    cinf cexp

@@ -21,7 +21,7 @@ INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
 NEURON {
 	SUFFIX KC3
 	USEION ca READ cai
-	USEION k WRITE ik
+	USEION k READ ek WRITE ik
 	RANGE gkbar,gk,zinf,ik
 }
 

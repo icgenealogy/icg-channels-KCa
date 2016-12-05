@@ -22,7 +22,7 @@ UNITS {
 }
 
 PARAMETER { 
-		gbar = 0   (S/cm2) 
+		gbar = 1.0   (S/cm2) 
 		Vm   = -65 (mV) : resting potential
 }
 

@@ -18,7 +18,7 @@ UNITS {
 }
 
 PARAMETER {
-	gbar = 0	(pS/um2)
+	gbar = 1.0	(pS/um2)
         n = 4
         cai = 50.e-6	(mM)
         a0 = 1.3e4	(1/ms-mM-mM-mM-mM)	:b0/(1.4e-4^4)

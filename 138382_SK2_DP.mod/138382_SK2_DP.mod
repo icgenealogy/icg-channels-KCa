@@ -19,7 +19,7 @@ ENDCOMMENT
 NEURON{
 	SUFFIX SK2_DP
 	USEION ca READ cai
-	USEION ca2 READ ca2i VALENCE 2
+	:USEION ca2 READ ca2i VALENCE 2
 	USEION k READ ek WRITE ik 
 	RANGE gkbar, g, ik, tcorr
 	GLOBAL frac1, frac2
@@ -35,7 +35,7 @@ UNITS {
 PARAMETER {
 	celsius  (degC)
 	cai (mM)
-	ca2i (mM)
+	:ca2i (mM)
 	gkbar = 0.038 (mho/cm2)
 	Q10 = 3
 	diff = 3 (1) : diffusion factor
@@ -104,7 +104,7 @@ INITIAL{
 
 KINETIC kin{ 
 :	 printf("%f", frac1)
-	rates((cai*frac1+ca2i*frac2)/diff) 
+	rates((cai)/diff) 
 	~c1<->c2 (dirc2_t_ca, invc1_t) 
 	~c2<->c3 (dirc3_t_ca, invc2_t) 
 	~c3<->c4 (dirc4_t_ca, invc3_t) 

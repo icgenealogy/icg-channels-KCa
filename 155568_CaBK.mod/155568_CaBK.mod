@@ -15,9 +15,10 @@ UNITS {
 
 NEURON {
 	SUFFIX cagk
-	USEION nca READ ncai VALENCE 2
-	USEION lca READ lcai VALENCE 2
-	USEION tca READ tcai VALENCE 2
+	:USEION nca READ ncai VALENCE 2
+	:USEION lca READ lcai VALENCE 2
+	:USEION tca READ tcai VALENCE 2
+	USEION ca READ cai
 	USEION k READ ek WRITE ik
 	RANGE gkbar,gkca, ik
 	GLOBAL oinf, otau
@@ -32,7 +33,7 @@ PARAMETER {
 	celsius		(degC)
 	v		(mV)
 	gkbar=.01	(mho/cm2)	: Maximum Permeability
-	cai = 5.e-5	(mM)
+	:cai = 5.e-5	(mM)
 	ek		(mV)
 
 	d1 = .84
@@ -42,9 +43,10 @@ PARAMETER {
 	abar = .28	(/ms)
 	bbar = .48	(/ms)
         st=1            (1)
-	lcai		(mV)
-	ncai		(mV)
-	tcai		(mV)
+	:lcai		(mV)
+	:ncai		(mV)
+	:tcai		(mV)
+	cai		(mV)
 }
 
 ASSIGNED {
@@ -55,7 +57,7 @@ ASSIGNED {
 }
 
 INITIAL {
-	cai= ncai + lcai + tcai
+	:cai= ncai + lcai + tcai
         rate(v,cai)
         o=oinf
 }

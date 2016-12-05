@@ -30,7 +30,7 @@ ASSIGNED {       : parameters needed to solve DE
 }
 
 PARAMETER {
-	gbar    = 0   (mho/cm2)
+	gbar    = 1.0   (mho/cm2)
         
 : 	taumin  = 180    (ms)            : minimal value of the time cst
  	taumin  = 150    (ms)            : minimal value of the time cst

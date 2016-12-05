@@ -15,11 +15,13 @@ UNITS {
 
 NEURON {
 	SUFFIX gskch
-	USEION sk READ esk WRITE isk VALENCE 1
-	USEION nca READ ncai VALENCE 2
-	USEION lca READ lcai VALENCE 2
-	USEION tca READ tcai VALENCE 2
-	RANGE gsk, gskbar, qinf, qtau, isk
+	:USEION sk READ esk WRITE isk VALENCE 1
+	:USEION nca READ ncai VALENCE 2
+	:USEION lca READ lcai VALENCE 2
+	:USEION tca READ tcai VALENCE 2
+	USEION k READ ek WRITE ik
+        USEION ca READ cai
+        RANGE gsk, gskbar, qinf, qtau
 }
 
 INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
@@ -28,43 +30,45 @@ PARAMETER {
 	celsius=6.3 (degC)
 	v		(mV)
 	dt		(ms)
-	gskbar  (mho/cm2)
-	esk	(mV)
-	cai (mM)
-	ncai (mM)
-	lcai (mM)
-	tcai (mM)
+	gskbar = 1.0 (mho/cm2)
+	:ek	(mV)
+	:cai (mM)
+	:ncai (mM)
+	:lcai (mM)
+	:tcai (mM)
 }
 
 STATE { q }
 
 ASSIGNED {
-	isk (mA/cm2) gsk (mho/cm2) qinf qtau (ms) qexp
+        ek (mV)
+        cai (mM)
+	ik (mA/cm2) gsk (mho/cm2) qinf qtau (ms) qexp
 }
 
 
 BREAKPOINT {          :Computes i=g*q^2*(v-esk)
 	SOLVE state
         gsk = gskbar * q*q
-	isk = gsk * (v-esk)
+	ik = gsk * (v-ek)
 }
 
 UNITSOFF
 
 INITIAL {
-	cai = ncai + lcai + tcai	
+	:cai = ncai + lcai + tcai	
 	q=qinf
 	rate(cai)
-	VERBATIM
-	ncai = _ion_ncai;
-	lcai = _ion_lcai;
-	tcai = _ion_tcai;
-	ENDVERBATIM
+	:VERBATIM
+	:ncai = _ion_ncai;
+	:lcai = _ion_lcai;
+	:tcai = _ion_tcai;
+	:ENDVERBATIM
 }
 
 
 PROCEDURE state() {  :Computes state variable q at current v and dt.
-	cai = ncai + lcai + tcai
+	:cai = ncai + lcai + tcai
 	rate(cai)
 	q = q + (qinf-q) * qexp
 	VERBATIM

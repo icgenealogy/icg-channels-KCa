@@ -13,7 +13,7 @@ UNITS
 NEURON {
         SUFFIX KCT
 	USEION ca READ cai
-	USEION k WRITE ik
+	USEION k READ ek WRITE ik
         RANGE gCTbar, gCT
         GLOBAL cinf, dinf, dtau, ctau
 }
@@ -21,7 +21,7 @@ NEURON {
 PARAMETER 
 {
         gCTbar = 0.120 (S/cm2)	<0,1e9>
-        eK = -95 (mV)
+        :eK = -95 (mV)
 	ctau = 0.55 (ms)
 }
  
@@ -33,6 +33,7 @@ STATE
  
 ASSIGNED 
 {
+        ek (mV)
         ik (mA/cm2)
         cai (mM)
         v (mV)
@@ -49,7 +50,7 @@ BREAKPOINT
 {
         SOLVE states METHOD cnexp
         gCT = gCTbar*c*c*d
-	ik = gCT*(v - eK)
+	ik = gCT*(v - ek)
 }
  
  

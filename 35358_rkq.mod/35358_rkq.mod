@@ -16,7 +16,7 @@ NEURON {
 }
 
 PARAMETER { 
-	gmax = 0.0 	(mho/cm2)
+	gmax = 1.0 	(mho/cm2)
 	v		(mV) 
 	ek 		(mV)  
 	cai		(1)

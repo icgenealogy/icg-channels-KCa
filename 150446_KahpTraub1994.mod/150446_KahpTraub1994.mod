@@ -20,7 +20,7 @@ UNITS {
 } 
 
 PARAMETER { 
-	gbar = 0.0 	(S/cm2)
+	gbar = 1.0 	(S/cm2)
 }
  
 ASSIGNED { 

@@ -35,11 +35,11 @@ PARAMETER {
         v (mV)
 	dt (ms)
 	gk = 0.0001 (mho/cm2)
-        isKCa = 0.0 (mA/cm2)
+        :isKCa = 0.0 (mA/cm2)
 	sKCatau = 2.365325544e+01 (ms)
-	ek 
+	:ek 
 	ki
-	cai
+	:cai
 	celsius
 	
 	activate_Q10 = 1
@@ -51,6 +51,8 @@ PARAMETER {
 }
 
 ASSIGNED {
+        ek (mV)
+        cai (mM)
 	ica (mA/cm2)
         ik (mA/cm2)
         winf 
@@ -66,7 +68,7 @@ STATE {
 BREAKPOINT {
 	SOLVE integrate METHOD cnexp
 	ik = (gk*gmax_k)*w*(v-ek)
-	isKCa = ik
+	:isKCa = ik
 }
 
 

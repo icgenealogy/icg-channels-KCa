@@ -18,8 +18,8 @@ flowing through L channels
  NEURON {
  	SUFFIX kca2
  	USEION k READ ek WRITE ik
- 	USEION ca READ ica WRITE cai
-  USEION caL READ icaL 	
+ 	USEION ca READ cai : WRITE cai
+  :USEION caL READ icaL 	
   RANGE n, g,ik,cai,ica,icaL,depth1,taur1,depth2,taur2
  	GLOBAL Ra, Rb, caix
  }
@@ -86,13 +86,13 @@ flowing through L channels
  
 
 DERIVATIVE states {  
- 	drive_channel1 =  - (10000) * ica/ (2 * FARADAY * depth1)
- 	if (drive_channel1 <= 0.) { drive_channel1 = 0. }	: cannot pump inward
- 	ca' = drive_channel1 + (cainf-ca)/taur1
- 	drive_channel2 =  - (10000) * icaL/ (2 * FARADAY * depth2)
- 	if (drive_channel2 <= 0.) { drive_channel2 = 0. }	: cannot pump inward
- 	caL' = drive_channel2 + (cainf-caL)/taur2
- 	cai = ca + caL
+ 	:drive_channel1 =  - (10000) * ica/ (2 * FARADAY * depth1)
+ 	:if (drive_channel1 <= 0.) { drive_channel1 = 0. }	: cannot pump inward
+ 	:ca' = drive_channel1 + (cainf-ca)/taur1
+ 	:drive_channel2 =  - (10000) * icaL/ (2 * FARADAY * depth2)
+ 	:if (drive_channel2 <= 0.) { drive_channel2 = 0. }	: cannot pump inward
+ 	:caL' = drive_channel2 + (cainf-caL)/taur2
+ 	:cai = ca + caL
 
           rates(cai)    
          n' = (ninf-n)/ntau
