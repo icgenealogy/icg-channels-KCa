@@ -7,9 +7,9 @@ TITLE C channel
 NEURON {
 	SUFFIX icnew
 	USEION k READ ek WRITE ik
-	USEION ca READ ica
+	USEION ca READ cai
 	GLOBAL inf
-	RANGE gkbar,ek,tau_diff,taum,fact, ik, ca_beta
+	RANGE ica,gkbar,ek,tau_diff,taum,fact, ik, ca_beta
 }
 UNITSON
 UNITS {
@@ -35,16 +35,17 @@ CONSTANT {
 	ca_alpha = 100.0 (mM/ms/mA)
 }
 
-STATE { m cai}
+STATE { m}
 ASSIGNED {
 	ik (mA/cm2)
 	ica (mA/cm2)
+	cai (mM)
 	inf[1]
 	tau[1]
 }
 
 INITIAL {
-	cai = 0.0 (mM)
+	:cai = 0.0 (mM)
   	:ca_beta=1/(tau_diff+1e-10)
 	:printf("ca_beta=%g\n",ca_beta)
 }
@@ -57,7 +58,7 @@ BREAKPOINT {
 DERIVATIVE states {	: exact when ca held constant
 	mhn(cai)
 	m' = (inf[0] - m)/tau[0]
-	cai' = (ca_alpha*(-ica) - ca_beta*cai)*fact
+	:cai' = (ca_alpha*(-ica) - ca_beta*cai)*fact
 }
 
 FUNCTION varss(ca) {
