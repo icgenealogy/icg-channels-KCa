@@ -269,3 +269,5 @@ Repository for channel models of the KCa class
 * 3433: [154732_kca.mod](https://github.com/icgenealogy/icg-channels-kca/blob/master/154732_kca.mod)
 * 3440: [155602_gskch.mod](https://github.com/icgenealogy/icg-channels-kca/blob/master/155602_gskch.mod)
 * 3447: [155602_CaBK.mod](https://github.com/icgenealogy/icg-channels-kca/blob/master/155602_CaBK.mod)
+* 2699: [114637_ic.mod](https://github.com/icgenealogy/icg-channels-kca/blob/master/114637_ic.mod)
+* 2722: [121600_ic.mod](https://github.com/icgenealogy/icg-channels-kca/blob/master/121600_ic.mod)
